@@ -25,10 +25,12 @@ import com.psh.learn.cupcake.data.DataSource
 
 @Composable
 fun StartOrderScreen(
-    quantityOptions: List<Pair<Int, Int>>, modifier: Modifier = Modifier
+    quantityOptions: List<Pair<Int, Int>>,
+    onQuantityButtonClicked: (Int) -> Unit, modifier: Modifier = Modifier
 ) {
     Column(
-        modifier = modifier, verticalArrangement = Arrangement.SpaceBetween
+        modifier = modifier.padding(vertical = dimensionResource(R.dimen.padding_medium)),
+        verticalArrangement = Arrangement.SpaceBetween
     ) {
         Column(
             modifier = Modifier.fillMaxWidth(),
@@ -52,7 +54,9 @@ fun StartOrderScreen(
             verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_medium))
         ) {
             quantityOptions.forEach { item ->
-                SelectQuantityButton(labelResourceId = item.first, onClick = { /*TODO*/ })
+                SelectQuantityButton(
+                    labelResourceId = item.first,
+                    onClick = { onQuantityButtonClicked(item.second) })
             }
         }
     }
@@ -74,6 +78,7 @@ fun SelectQuantityButton(
 fun StartOrderPreview() {
     StartOrderScreen(
         DataSource.quantityOptions,
+        {},
         Modifier
             .fillMaxSize()
             .padding(dimensionResource(R.dimen.padding_medium))

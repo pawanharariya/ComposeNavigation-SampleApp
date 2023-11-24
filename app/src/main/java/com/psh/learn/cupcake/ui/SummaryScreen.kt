@@ -24,7 +24,9 @@ import com.psh.learn.cupcake.ui.components.PriceLabel
 @Composable
 fun OrderSummaryScreen(
     orderUiState: OrderUiState,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onCancelButtonClicked: () -> Unit = {},
+    onSendButtonClicked: (String, String) -> Unit = { _, _ -> }
 ) {
     val resources = LocalContext.current.resources
 
@@ -75,13 +77,13 @@ fun OrderSummaryScreen(
         ) {
             Button(
                 modifier = Modifier.fillMaxWidth(),
-                onClick = {}
+                onClick = { onSendButtonClicked(newOrder, orderSummary) }
             ) {
                 Text(stringResource(R.string.send))
             }
             OutlinedButton(
                 modifier = Modifier.fillMaxWidth(),
-                onClick = {}
+                onClick = onCancelButtonClicked
             ) {
                 Text(stringResource(R.string.cancel))
             }
